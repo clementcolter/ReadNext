@@ -1,0 +1,44 @@
+doctype html
+html
+    head
+        link(rel='stylesheet', type='text/css', href='../css/main.css')
+        title ReadNext-signup
+    body.signup
+        header
+            div.logo-container
+                img(src='../images/logo.png', alt='Logo')
+                h1 Welcome To ReadNext!
+            div.task-bar
+                nav
+                    ul
+                        li
+                            a(href='/') Home
+                        li
+                            a(href='#') About
+                        li
+                            a(href='/signup') Signup
+                        li
+                            a(href='#') Login
+                        li 
+                            a(href='#') Genres
+        main
+            form(action='/endpoint/signup' method='POST')
+                .signup-container
+                  .signup-content
+                    h2 Sign Up
+                    label(for='username') Username:
+                    input#username(type='text' name='username' maxlength='15' required='')
+                    label(for='Email') Email:
+                    input#Email(type='email' name='Email' required='')
+                    br
+                    br
+                    label(for='password') Password:
+                    input#password(type='password' name='password' required='')
+                    br
+                    br
+                    label(for='confirmPassword') Confirm Password:
+                    input#confirmPassword(type='password' name='confirmPassword')
+                    br
+                    br
+                    label(for='submission')
+                    input#submission(type='submit' name='submission' value='Create Account')

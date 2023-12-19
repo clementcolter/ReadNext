@@ -1,5 +1,6 @@
 html {
     background-color: antiquewhite;
+    
 }
 body {
     font-family:fantasy;
@@ -74,22 +75,22 @@ h2 {
     font-weight: bold;
   }
   
-  .new-releases-container {
+.new-releases-container {
     display: flex;
     overflow-x: auto;
     margin-bottom: 2em;
-  }
-  
-  .new-releases-container img {
+}
+
+.new-releases-container img {
     width: 200px;
     height: 300px; 
     margin-right: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
-  }
-  
-  .new-releases-container .book-details {
+}
+
+.new-releases-container .book-details {
     width: 200px;
     background-color: #f0e4e4;
     border: 1px solid #121010;
@@ -102,15 +103,107 @@ h2 {
     opacity: 0; /* Start with 0 opacity */
     transition: opacity 0.3s ease, transform 0.3s ease; /* Add transition to opacity and transform */
     transform: translateY(10px); /* Move the details box down slightly */
-  }
-  
-  .new-releases-container .book-item:hover .book-details {
+}
+
+.new-releases-container .book-item:hover .book-details {
     opacity: 1;
     transform: translateY(0);
     display: block;
-  }
-  
-  .new-releases-container img:hover {
+}
+
+.new-releases-container img:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+/* SIGNUP PAGE */
+.signup-container {
+    max-width: 400px;
+    margin-top: 10px;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #4ca33b;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+}
+
+/* Style the form content */
+.signup-content {
+    display: grid;
+    flex: 1;
+    gap: 5px;
+}
+
+.signup-container h2 {
+    text-align: center;
+}
+
+/* Style labels */
+label {
+    font-weight: bold;
+    display: block;
+}
+
+/* Style text inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #336c27;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #61df48;
+}
+
+.signup { 
+    background-image: url("../images/background.jpeg");
+}
+#right-image {
+    display: flex;
+    justify-content: right;
+    width: 100%;
+    max-width: 200px; 
+    border-radius: 5px;
   }
+
+/* Success */
+
+.success { 
+    background-image: url("../images/background.jpeg");
+}
+
+.success-container {
+    display: flex;
+    justify-content: center;
+}
+
+.success-content {
+    background-color: #4ca33b;
+    color: #fff;
+    padding: 10px;
+    border: 3px solid #ccc;
+    border-radius: 4px;
+}
+
+.success-img {
+    display: flex;
+    justify-content: center;
+}

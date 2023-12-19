@@ -11,16 +11,22 @@ var connPool = mysql.createPool({
   }
 });
 
-async function uploadBook(binary, bookname){
-    const query = "INSERT INTO books (image_data, book_name) VALUES (?, ?)";
+async function uploadBook(binary, bookname, author, upload_time){
+    const query = "INSERT INTO books (image_data, book_name, author, upload_time) VALUES (?, ?, ?, ?)";
     const ls = bookname.split('.')
-    const param = [binary, ls[0]];
+    const param = [binary, ls[0], author, upload_time];
     return await connPool.awaitQuery(query, param);
 }
 
 async function getNewestBooks(){
     // Later use timestamp to get the literal latest 
-    const query = "SELECT * FROM books;"
+    const query = "SELECT * FROM books ORDER BY upload_time DESC LIMIT 10;"
     return await connPool.awaitQuery(query);
 }
-module.exports = {uploadBook, getNewestBooks}
+
+async function registerAccount(username, password, salt){
+    const query = "INSERT INTO accounts (username, password_hash, salt) VALUES (?,?,?)"
+    const params = [username, password, salt];
+    return await connPool.awaitQuery(query, params);
+}
+module.exports = {uploadBook, getNewestBooks, registerAccount}
