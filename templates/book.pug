@@ -3,12 +3,9 @@ html
     head
         link(rel='stylesheet', type='text/css', href='../css/main.css')
         link(href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet')
+        script(src='../js/mainpage.js' type='text/javascript' defer='')
         title ReadNext
         body
-        header
-            div.logo-container
-                img(src='../images/logo.png', alt='Logo')
-                h1 Welcome To ReadNext!
             div.task-bar
                 nav
                     ul
@@ -31,24 +28,25 @@ html
                 div.search-bar
                     input(type='text', placeholder='Search...')
         main
-            div.quote-container 
-                div.quote-content Daily Quote
-                    div.quote #{daily_quote.quote}
-                    div.author #{daily_quote.author}
-        if isLoggedIn 
-            .welcome-container
-                .welcome-content
-                    h2 Welcome #{user}!
-        h2 New Releases 
-            div.new-releases-container
-                each book in books
-                    div.book-item
-                        a(href=`/book?name=${book.book_name}&auth=${book.author}`)
-                            img(src=`data:image/jpeg;base64,${book.image_data}`, alt=`${book} Poster`)
-                        div.book-details
-                            p Title: #{book.book_name}
-                            p Author: #{book.author}
-                            p Reviews: #{book.reviews}
-                            p Stars: #{book.stars}
-        footer
-            p Copyright © 2023 Your Company
+        .book-layout
+            .book-container
+                h1 #{title}
+                img(src=`data:image/jpeg;base64,${book_data.image_data}`, alt=`${title} Poster`)
+            .details-container   
+                p Author: #{auth}
+                p Reviews: #{book_data.review_num}
+                p Stars: #{book_data.stars}
+            .comments-container
+                // Your comments/reviews section goes here
+                button#add-comment-button(type='button') Add Review
+
+                // Add a form for the new comment, initially hidden
+                form#new-comment-form(style='display: none;' action='/endpoint/comment' method='POST')
+                    label(for='new-comment') New Comment:
+                    textarea#new-comment(name='new-comment' rows='4' cols='50' required='')
+                    br
+                    button#submit-comment(type='button') Submit Review
+                h1 Reviews
+
+                .comment
+

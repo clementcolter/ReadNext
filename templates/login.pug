@@ -1,0 +1,36 @@
+doctype html
+html.login
+    head
+        link(rel='stylesheet', type='text/css', href='../css/main.css')
+        title ReadNext-login
+    body
+        header
+            div.logo-container
+                img(src='../images/logo.png', alt='Logo')
+                h1 Welcome To ReadNext!
+            div.task-bar
+                nav
+                    ul
+                        li
+                            a(href='/') Home
+                        li
+                            a(href='#') About
+                        li
+                            a(href='/signup') Signup
+                        li
+                            a(href='#') Login
+        main
+            form(action='/endpoint/login' method='POST')
+                .login-container
+                  .login-content
+                    h2 Login
+                    label(for='username') Username:
+                    input#username(type='text' name='username' maxlength='15' required='')
+                    br
+                    br
+                    label(for='password') Password:
+                    input#password(type='password' name='password' required='')
+                    br
+                    br
+                    label(for='submission')
+                    input#submission(type='submit' name='submission' value='Login')
