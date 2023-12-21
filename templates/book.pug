@@ -37,16 +37,31 @@ html
                 p Reviews: #{book_data.review_num}
                 p Stars: #{book_data.stars}
             .comments-container
-                // Your comments/reviews section goes here
-                button#add-comment-button(type='button') Add Review
-
-                // Add a form for the new comment, initially hidden
-                form#new-comment-form(style='display: none;' action='/endpoint/comment' method='POST')
-                    label(for='new-comment') New Comment:
-                    textarea#new-comment(name='new-comment' rows='4' cols='50' required='')
-                    br
-                    button#submit-comment(type='button') Submit Review
+                if isLoggedIn
+                    button#add-comment-button(type='button') Add Review
+                    form#new-comment-form(style='display: none;' action=`/endpoint/comment?name=${title}.jpg&auth=${auth}` method='POST')
+                        input(type='hidden' name='book_id' id='book_id' value=book_data.id)
+                        label(for='comment') New Comment:
+                        textarea#new-comment(name='comment' rows='4' cols='50' required='')
+                        h2 How Many Stars?
+                        .rate
+                            input#star5(type='radio' name='rate' value='5')
+                            label(for='star5' title='text') 5 stars
+                            input#star4(type='radio' name='rate' value='4')
+                            label(for='star4' title='text') 4 stars
+                            input#star3(type='radio' name='rate' value='3')
+                            label(for='star3' title='text') 3 stars
+                            input#star2(type='radio' name='rate' value='2')
+                            label(for='star2' title='text') 2 stars
+                            input#star1(type='radio' name='rate' value='1')
+                            label(for='star1' title='text') 1 star
+                        br
+                        br
+                        button#submit-comment(type='submit') Submit Review
                 h1 Reviews
-
-                .comment
+                each comment in response
+                    .comment
+                        h4.auth #{comment.posted_by}
+                        h4.com #{comment.comment}
+                        h4.date #{comment.posted_date}
 

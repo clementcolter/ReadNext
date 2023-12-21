@@ -6,6 +6,7 @@ create table books (
     stars int default 0,
     upload_time timestamp,
     author text not null,
+    genre VARCHAR(255),
     primary key(id)
 );
 

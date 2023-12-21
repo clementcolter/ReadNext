@@ -50,15 +50,15 @@ app.get('/', (req, res) =>{
 
 app.get('/book', (req, res) =>{
     data.getBookDetails(req.query.name, req.query.auth).then(response => {
+        console.log(response);
         let title = req.query.name.split('.');
         title = title[0];
         auth = req.query.auth
         let book_data = response[0];
         response[0].image_data = Buffer.from(response[0].image_data).toString('base64');
-        
-        res.render('book.pug', {book_data, title, auth})
+        const isLoggedIn = req.session && req.session.user;
+        res.render('book.pug', {book_data, title, auth, isLoggedIn, response})
     })
-    
 })
 
 app.get('/account', (req, res) =>{
@@ -113,7 +113,13 @@ app.post('/endpoint/signup', (req, res)=>{
 })
 
 app.post('/endpoint/comment', (req, res) =>{
-    
+    // Can assume the user that posted it logged in :D
+    console.log(req.query); 
+    const title = req.query.name; 
+    const auth = req.query.auth;
+    data.addComment(req.body.comment, req.session.user, req.body.book_id, req.body.rate).then(response =>{
+        res.redirect(`/book?name=${title}&auth=${auth}`);
+    })
 })
 
 async function genUser(body){

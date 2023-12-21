@@ -31,7 +31,7 @@ async function uploadQuote(quote, author="Unknown", bookname = "Unknown"){
 }
 
 async function getBookDetails(book, author){
-    const query = "SELECT review_num, stars, image_data FROM books WHERE book_name = ? AND author = ?"
+    const query = "SELECT review_num, stars, books.image_data, books.id, comments.comment, comments.posted_by, DATE_FORMAT(comments.posted_date, '%Y-%m-%d %h:%i %p') AS posted_date, comments.rating FROM books LEFT JOIN comments ON books.id = comments.book_id WHERE book_name = ? AND author = ? "
     const params = [book, author];
     return await connPool.awaitQuery(query, params);
 }
@@ -51,4 +51,22 @@ async function registerAccount(username, password, salt){
     const params = [username, password, salt];
     return await connPool.awaitQuery(query, params);
 }
-module.exports = {uploadBook, uploadQuote, getNewestBooks, registerAccount, getAccount, getDailyQuote, getBookDetails}
+
+async function addComment(comment, posted_by, book_id, stars){
+    stars = parseInt(stars); 
+    const query1 = `INSERT INTO comments (comment, posted_by, book_id) VALUES (?, ?, ?);`
+    const params1 = [comment, posted_by, book_id];
+    const query2 = `
+                    UPDATE books 
+                    SET 
+                        review_num = review_num + 1, 
+                        stars = ((stars * (review_num - 1)) + ?) / review_num 
+                    WHERE 
+                        id = ?;
+                    `;
+    const params2 = [stars, book_id];
+    await connPool.awaitQuery(query1, params1);
+    return await connPool.awaitQuery(query2, params2);
+}
+
+module.exports = {uploadBook, addComment, uploadQuote, getNewestBooks, registerAccount, getAccount, getDailyQuote, getBookDetails}

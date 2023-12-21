@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const submitButton = document.getElementById("submit-comment");
     submitButton.addEventListener("click", function () {
-     
         commentForm.style.display = "none";
     });
 });
+
